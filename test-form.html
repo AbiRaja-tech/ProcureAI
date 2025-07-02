@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcureAI Form Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-6 text-center">ProcureAI Form Test</h1>
+        
+        <div id="status" class="mb-4 p-3 rounded hidden"></div>
+        
+        <form id="testForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Name *</label>
+                <input type="text" name="name" required 
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-1">Email *</label>
+                <input type="email" name="email" required 
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-1">Company *</label>
+                <input type="text" name="company" required 
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <button type="submit" id="submitBtn"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50">
+                Test Submit
+            </button>
+        </form>
+        
+        <div class="mt-6 text-sm text-gray-600">
+            <p><strong>Instructions:</strong></p>
+            <ol class="list-decimal list-inside space-y-1 mt-2">
+                <li>Replace SCRIPT_URL below with your Google Apps Script URL</li>
+                <li>Fill out the form and click submit</li>
+                <li>Check browser console for detailed logs</li>
+                <li>Verify data appears in your Google Sheet</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec';
+        
+        const form = document.getElementById('testForm');
+        const status = document.getElementById('status');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                company: formData.get('company'),
+                source: 'Test Form',
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Submitting to:', SCRIPT_URL);
+            console.log('Data:', data);
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            showStatus('Submitting...', 'blue');
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+                
+                const result = await response.json();
+                console.log('Result:', result);
+                
+                if (result.success) {
+                    showStatus('✅ Success! Check your Google Sheet.', 'green');
+                    form.reset();
+                } else {
+                    showStatus('❌ Error: ' + result.message, 'red');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showStatus('❌ Network Error: ' + error.message, 'red');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Test Submit';
+            }
+        });
+        
+        function showStatus(message, color) {
+            status.textContent = message;
+            status.className = `mb-4 p-3 rounded bg-${color}-100 text-${color}-800 border border-${color}-200`;
+            status.classList.remove('hidden');
+        }
+        
+        // Check if script URL is configured
+        if (SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
+            showStatus('⚠️ Please update SCRIPT_URL with your Google Apps Script URL', 'yellow');
+        }
+    </script>
+</body>
+</html>
