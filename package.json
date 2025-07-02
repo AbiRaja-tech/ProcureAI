@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "latest",
@@ -24,7 +28,11 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
     "postcss": "^8.5",
+    "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
 }
