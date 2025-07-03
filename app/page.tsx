@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Bot, BarChart3, Users, Shield, Play, CheckCircle, Sparkles, Menu, X } from "lucide-react"
+import { ArrowRight, Bot, BarChart3, Users, Shield, Play, CheckCircle, Sparkles, Menu, X, Mail, ExternalLink } from "lucide-react"
 import { DemoShowcase } from "@/components/demo-showcase"
 import { ResearchBackedBenefits } from "@/components/research-backed-benefits"
 import { PoweredBy } from "@/components/powered-by"
@@ -293,7 +293,7 @@ export default function LandingPage() {
               <a href="#benefits" className="text-gray-600 hover:text-blue-600 transition-colors text-sm lg:text-base">
                 Benefits
               </a>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm lg:text-base px-4 lg:px-6">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm lg:text-base px-4 lg:px-6" onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}>
                 Get Started
               </Button>
             </div>
@@ -338,7 +338,9 @@ export default function LandingPage() {
                 >
                   Benefits
                 </a>
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full mt-2">Get Started</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full mt-2" onClick={() => { setMobileMenuOpen(false); document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' }) }}>
+                  Get Started
+                </Button>
               </div>
             </motion.div>
           )}
@@ -367,6 +369,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto"
+                  onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Start Free Trial
                   <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -387,9 +390,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* Demo Showcase */}
-      <DemoShowcase />
 
       {/* Features Section */}
       <section id="features" className="py-12 sm:py-16 lg:py-20 xl:py-24 px-4 sm:px-6 lg:px-8 bg-white">
@@ -454,6 +454,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Demo Showcase */}
+      <DemoShowcase />
+
       {/* Research-Backed Benefits */}
       <ResearchBackedBenefits />
 
@@ -461,127 +464,105 @@ export default function LandingPage() {
       <PoweredBy />
 
       {/* CTA Section with Integrated Form */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 px-2">
-              Ready to Transform Your Procurement?
-            </h2>
-            <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 px-2">
-              Join thousands of companies using ProcureAI to streamline their purchase orders
-            </p>
-
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20">
-              <CardContent className="p-4 sm:p-6 lg:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
-                  <div className="text-left">
-                    <h3 className="text-xl sm:text-2xl font-semibold text-white mb-3 sm:mb-4">Start Your Free Trial</h3>
-                    <ul className="space-y-2 sm:space-y-3 text-blue-100">
-                      <li className="flex items-center text-sm sm:text-base">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-400 flex-shrink-0" />
-                        30-day free trial
-                      </li>
-                      <li className="flex items-center text-sm sm:text-base">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-400 flex-shrink-0" />
-                        No credit card required
-                      </li>
-                      <li className="flex items-center text-sm sm:text-base">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-400 flex-shrink-0" />
-                        Full platform access
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3 sm:space-y-4">
-                    {/* Success Message */}
-                    {submitStatus === "success" && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-green-500/20 border border-green-400/30 rounded-lg p-3 sm:p-4 mb-4"
-                      >
-                        <div className="flex items-center text-green-100">
-                          <CheckCircle className="w-5 h-5 mr-2 flex-shrink-0" />
-                          <span className="text-sm sm:text-base font-medium">
-                            Thanks! Our team will contact you soon.
-                          </span>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Error Message */}
-                    {submitStatus === "error" && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-red-500/20 border border-red-400/30 rounded-lg p-3 sm:p-4 mb-4"
-                      >
-                        <div className="flex items-center text-red-100">
-                          <X className="w-5 h-5 mr-2 flex-shrink-0" />
-                          <span className="text-sm sm:text-base">{errorMessage}</span>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    <form onSubmit={handleFormSubmit} className="space-y-3 sm:space-y-4">
-                      <Input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Your full name"
-                        className="bg-white/20 border-white/30 text-white placeholder:text-blue-200 h-10 sm:h-12"
-                        disabled={isSubmitting}
-                        required
-                      />
-                      <Input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="Your work email"
-                        className="bg-white/20 border-white/30 text-white placeholder:text-blue-200 h-10 sm:h-12"
-                        disabled={isSubmitting}
-                        required
-                      />
-                      <Input
-                        type="text"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        placeholder="Company name"
-                        className="bg-white/20 border-white/30 text-white placeholder:text-blue-200 h-10 sm:h-12"
-                        disabled={isSubmitting}
-                        required
-                      />
-                      <Button
-                        type="submit"
-                        className="w-full bg-white text-blue-600 hover:bg-gray-100 font-semibold h-10 sm:h-12 disabled:opacity-50 disabled:cursor-not-allowed"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <div className="flex items-center">
-                            <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mr-2"></div>
-                            Submitting...
-                          </div>
-                        ) : (
-                          <>
-                            Start Free Trial
-                            <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  </div>
+      <section id="cta-section" className="py-8 sm:py-10 lg:py-12 px-2 sm:px-4 bg-blue-600 flex justify-center items-center min-h-[30vh]">
+        <div className="w-full max-w-5xl mx-auto flex flex-col items-center" style={{ width: '80%' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 text-center">Ready to Transform Your Procurement?</h2>
+          <p className="text-base sm:text-lg text-blue-100 mb-8 text-center">Join the community shaping the future of procurement with ProcureAI</p>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
+            {/* Start Your Free Trial Card */}
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 flex flex-col h-full justify-between rounded-2xl shadow-xl min-w-0">
+              <CardContent className="p-6 flex flex-col h-full justify-between">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-3">Start Your Free Trial</h3>
+                  <ul className="space-y-2 text-blue-100 mb-4 text-base">
+                    <li className="flex items-center">
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-400 flex-shrink-0" />
+                      30-day free trial
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-400 flex-shrink-0" />
+                      No credit card required
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-400 flex-shrink-0" />
+                      Full platform access
+                    </li>
+                  </ul>
                 </div>
+                <form onSubmit={handleFormSubmit} className="space-y-2 bg-white/20 rounded-xl p-4 flex flex-col w-full max-w-xs mx-auto">
+                  <Input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Your full name"
+                    className="bg-white/40 border-white/30 text-white placeholder:text-blue-200 h-10 text-sm"
+                    disabled={isSubmitting}
+                    required
+                  />
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Your work email"
+                    className="bg-white/40 border-white/30 text-white placeholder:text-blue-200 h-10 text-sm"
+                    disabled={isSubmitting}
+                    required
+                  />
+                  <Input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    placeholder="Company name"
+                    className="bg-white/40 border-white/30 text-white placeholder:text-blue-200 h-10 text-sm"
+                    disabled={isSubmitting}
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full bg-white text-blue-600 hover:bg-gray-100 font-semibold h-10 text-base disabled:opacity-50 disabled:cursor-not-allowed mt-2 shadow-lg rounded-lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center">
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Submitting...
+                      </div>
+                    ) : (
+                      <>
+                        Start Free Trial
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </>
+                    )}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
-          </motion.div>
+            {/* Looking for a Developer Card */}
+            <Card className="p-6 bg-white/10 backdrop-blur-sm border-white/20 flex flex-col items-center h-full justify-between rounded-2xl shadow-xl min-w-0">
+              <span className="inline-block px-4 py-1 mb-4 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm">Meet the Developer</span>
+              <h2 className="text-xl sm:text-2xl font-bold mb-2 text-white text-center">Looking for a Developer?</h2>
+              <p className="text-blue-100 mb-4 text-base text-center max-w-xl">
+                Interested in building something similar or need help with your next project? I specialize in creating modern, AI-powered web applications that deliver real business value.
+              </p>
+              <div className="w-full max-w-xs bg-blue-200/30 rounded-xl p-4 flex items-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mr-3 text-xl">👨‍💻</div>
+                <div>
+                  <div className="font-bold text-white text-base">Abi Raja</div>
+                  <div className="text-blue-100 text-sm">Applied AI & Full-Stack Developer</div>
+                </div>
+              </div>
+              <Button
+                className="w-full bg-white text-blue-600 hover:bg-blue-50 font-semibold text-base py-2 shadow-lg rounded-lg"
+                size="lg"
+                onClick={() => window.location.href = 'mailto:arrssekaran@gmail.com'}
+              >
+                <Mail className="w-5 h-5 mr-2" /> Hire Me for Your Project
+              </Button>
+            </Card>
+          </div>
         </div>
       </section>
     </div>
