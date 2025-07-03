@@ -360,7 +360,7 @@ export default function LandingPage() {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
                 Transform Your
                 <span className="text-blue-600 block">Purchase Orders</span>
-                with AI Intelligence
+                with Artificial Intelligence
               </h1>
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
                 Streamline procurement with intelligent automation, predictive analytics, and seamless vendor
