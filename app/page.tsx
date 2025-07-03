@@ -12,6 +12,7 @@ import { ArrowRight, Bot, BarChart3, Users, Shield, Play, CheckCircle, Sparkles,
 import { DemoShowcase } from "@/components/demo-showcase"
 import { ResearchBackedBenefits } from "@/components/research-backed-benefits"
 import { PoweredBy } from "@/components/powered-by"
+import { Analytics } from '@vercel/analytics/react'
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false)
@@ -565,6 +566,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <Analytics />
     </div>
   )
 }
